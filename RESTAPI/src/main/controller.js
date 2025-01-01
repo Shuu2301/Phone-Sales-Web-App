@@ -4,7 +4,7 @@ const path = require('path')
 
 // the api corresponding to page or function
 const homepage = (req, res)=>{
-    res.sendFile(path.join(__dirname, '..', '..', '..', 'frontend', 'home.html'));
+    res.sendFile(path.join(__dirname, '..', '..', '..', 'UI-cnpm', 'home.html'));
 }
 
 module.exports = {

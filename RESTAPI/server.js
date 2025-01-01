@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'UI-cnpm')));
 
 // only the basic; both route, controller, and models in same file
 //app.get("/", (req, res)=>{
