@@ -16,7 +16,7 @@ const getDataByName = async (req, res) => {
             .input('name', sql.NVarChar, name)
             .query(query);
 
-        if (Name === null) return res.status(404).json({ message: 'Product not found' });
+        if (Name === null) return res.status(400).json({ message: 'Product not found' });
         return res.status(200).json({ 
             name: Name,
             price: Price,
