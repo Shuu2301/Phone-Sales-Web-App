@@ -1,9 +1,17 @@
 const express = require('express');
-const { getDataByName, insertProduct } = require('../controllers/productController');
+const { getDataByName, getDataById, getAllData, insertProduct } = require('../controllers/productController');
 const router = express.Router();
 
-// Route to insert a new product
-router.get('/get', getDataByName);
+// Insert a new product
 router.post('/add', insertProduct);
+
+// Get a product by name
+router.get('/get', getDataByName);
+
+// Get a product by id
+router.route("/get/id/:id").get(getDataById);
+
+// Get all products
+router.route("/get/all").get(getAllData);
 
 module.exports = router;

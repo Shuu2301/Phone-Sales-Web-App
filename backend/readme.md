@@ -64,3 +64,12 @@
       "description": "Description of the new product",
       "otherInfor": "Additional information"
   }
+  ```
+
+  ### Get Product By Id
+- **Method**: `GET`
+- **URI**: `http://localhost:3000/get/id/:id`
+
+  ### Get All Products
+- **Method**: `GET`
+- **URI**: `http://localhost:3000/get/all`
