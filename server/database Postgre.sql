@@ -84,6 +84,34 @@ CREATE TABLE Orders (
     CONSTRAINT FK_Order_Payment FOREIGN KEY (PaymentId) REFERENCES Payment(PaymentId),
     CONSTRAINT FK_Order_Shipment FOREIGN KEY (ShipmentId) REFERENCES Shipment(ShipmentId)
 );
+
+CREATE OR REPLACE PROCEDURE export_csv(to_path TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Export the Product table to a CSV file
+    EXECUTE format(
+        'COPY (SELECT 
+            p.ProductId, 
+            p.Name, 
+            p.Price, 
+            p.Quantity, 
+            p.Description, 
+            p.Image, 
+            c.Category 
+         FROM 
+            Product p 
+         LEFT JOIN 
+            Category c 
+         ON 
+            p.CategoryId = c.CategoryId) 
+         TO %L WITH CSV HEADER',
+         to_path
+    );
+END;
+$$;
+
+
 --cart
 INSERT INTO Cart (CartId) VALUES (1);
 INSERT INTO Cart (CartId) VALUES (2);
