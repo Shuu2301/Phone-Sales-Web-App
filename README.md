@@ -5,6 +5,6 @@
 Thực hiện các lệnh như sau:
 
 ```
-cd RESTAPI
+cd backend
 node server
 ```
