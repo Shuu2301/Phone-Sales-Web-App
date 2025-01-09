@@ -9,9 +9,9 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '..', 'UI-cnpm')));
 
 // only the basic; both route, controller, and models in same file
-//app.get("/", (req, res)=>{
-//    res.sendFile(path.join(__dirname, '..', 'frontend', 'home.html'));
-//})
+app.get("/", (req, res)=>{
+   res.sendFile(path.join(__dirname, '..', 'frontend', 'home.html'));
+})
 app.use(Route)
 
-app.listen(port, () => console.log(`app listening on port ${port}`))
+app.listen(port, () => console.log(`Server listening on port ${port}`))

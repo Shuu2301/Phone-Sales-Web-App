@@ -5,6 +5,9 @@ const productRoutes = require('./routes/productRoutes');
 const app = express();
 const port = 3000;
 
+const cors = require('cors');
+app.use(cors());
+
 // Middleware to parse JSON
 app.use(express.json());
 

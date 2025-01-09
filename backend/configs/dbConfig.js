@@ -2,8 +2,8 @@ const sql = require('mssql');
 
 const dbConfig = {
     user: 'sa',
-    password: 'kato@131211#',
-    server: '127.0.0.1',
+    password: '12345',
+    server: 'localhost',
     database: 'ProgrammingIntegrationProject',
     connectionTimeout: 600000,
     requestTimeout: 600000,
