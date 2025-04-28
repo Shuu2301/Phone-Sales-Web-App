@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="icon"><i class="fas fa-cog"></i></span> <!-- Icon -->
+            <span class="text">ABC</span> <!-- Text -->
+        </div>
+        <div class="home-icon">
+            <a href="home.html">
+                <i class="fas fa-home" style="cursor: pointer;"></i> <!-- Home icon -->
+            </a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-plus"></i> <!-- Add icon -->
+            <i class="fas fa-bell"></i> <!-- Notification icon -->
+            <a href="my_cart.html">
+                <i class="fas fa-shopping-cart" style="cursor: pointer;"></i> <!-- Cart icon -->
+            </a>
+            <i class="fas fa-user-circle"></i> <!-- User icon -->
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Add Product</h1>
+            <div class="upload-boxes">
+                <div class="upload-box">Add picture/video</div>
+                <div class="upload-box">Add picture/video</div>
+                <div class="upload-box">Add picture/video</div>
+            </div>
+            <div class="form-group">
+                <label>Name of the product:</label>
+                <input type="text" id="product-name" placeholder="Enter product name">
+            </div>
+            <div class="form-group">
+                <label>Price:</label>
+                <input type="number" id="product-price" placeholder="Enter product price">
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea id="product-description" placeholder="Enter product description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Brand:</label>
+                <input type="text" id="product-brand" placeholder="Enter brand name">
+            </div>
+            <div class="form-group">
+                <label>Warranty:</label>
+                <input type="text" id="product-warranty" placeholder="Enter warranty information">
+            </div>
+            <div class="form-group">
+                <label>Other information:</label>
+                <textarea id="product-other-info" placeholder="Enter additional information"></textarea>
+            </div>
+            <div class="actions">
+                <button id="cancel-button">Cancel</button>
+                <button id="confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>
+            <p>Contact us</p>
+            <a href="#">Hotline & Online chat (24/7)</a>
+            <a href="#">Help Center</a>
+            <a href="#">How to Buy</a>
+            <a href="#">Shipping & Delivery</a>
+        </div>
+        <div>
+            <p>ABC</p>
+            <a href="#">About us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Careers</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Press & Media</a>
+        </div>
+    </footer>
+</body>
+</html>
+<script>
+    // Xử lý sự kiện nhấn nút "Confirm"
+    document.getElementById('confirm-button').addEventListener('click', async (e) => {
+        e.preventDefault(); // Ngăn chặn reload trang
+
+        // Thu thập dữ liệu từ form
+        const name = document.getElementById('product-name').value.trim();
+        const price = parseFloat(document.getElementById('product-price').value.trim());
+        const description = document.getElementById('product-description').value.trim();
+        const brand = document.getElementById('product-brand').value.trim();
+        const warranty = document.getElementById('product-warranty').value.trim();
+        const otherInfo = document.getElementById('product-other-info').value.trim();
+
+        // Kiểm tra dữ liệu hợp lệ
+        if (!name || !price) {
+            alert('Name and price are required!');
+            return;
+        }
+
+        try {
+            // Gửi dữ liệu đến API
+            const response = await fetch('http://localhost:3000/product/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    price,
+                    warranty,
+                    brand,
+                    description,
+                    otherInfor: otherInfo
+                }),
+            });
+
+            // Kiểm tra phản hồi từ API
+            if (!response.ok) {
+                throw new Error('Failed to add product');
+            }
+
+            const result = await response.json();
+            alert(result.message); // Hiển thị thông báo thành công
+
+            // Chuyển hướng về trang danh sách sản phẩm
+            window.location.href = 'home.html';
+        } catch (error) {
+            console.error('Error adding product:', error);
+            alert('Error adding product');
+        }
+    });
+
+    // Xử lý sự kiện nhấn nút "Cancel"
+    document.getElementById('cancel-button').addEventListener('click', (e) => {
+        e.preventDefault(); // Ngăn chặn reload trang
+        window.location.href = 'home.html'; // Quay lại trang danh sách sản phẩm
+    });
+</script>
